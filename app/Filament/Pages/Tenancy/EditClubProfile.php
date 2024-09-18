@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages\Tenancy;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Tenancy\EditTenantProfile;
@@ -23,6 +24,10 @@ class EditClubProfile extends EditTenantProfile
                 TextInput::make('address')
                     ->required()
                     ->maxLength(255),
+                FileUpload::make('photo')
+                    ->disk('s3')
+                    ->directory('clubberly/profile-photos')
+                    ->avatar(),
             ]);
     }
 }

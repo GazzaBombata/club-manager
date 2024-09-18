@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Filament\Models\Contracts\HasAvatar;
 
-class Club extends Model
+class Club extends Model implements HasAvatar
 {
     use HasFactory;
 
@@ -44,5 +45,10 @@ class Club extends Model
     public function commissions(): hasMany
     {
         return $this->hasMany(Commission::class, 'club_id');
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return 'https://medbooksbucket2.s3.eu-central-1.amazonaws.com/'.$this->photo;
     }
 }

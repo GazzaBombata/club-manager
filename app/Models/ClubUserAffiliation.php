@@ -29,4 +29,9 @@ class ClubUserAffiliation extends Model
     {
         return $this->belongsTo(Club::class);
     }
+
+    public function getProfilePhotoAttribute()
+    {
+        return $this->user->profile_photo_path;
+    }
 }

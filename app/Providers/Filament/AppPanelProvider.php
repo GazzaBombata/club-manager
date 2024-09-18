@@ -68,6 +68,7 @@ class AppPanelProvider extends PanelProvider
             ])
   /*          ->tenantRegistration(RegisterClub::class)*/
             ->tenantProfile(EditClubProfile::class)
+            ->favicon(asset('favicon.ico'))
             ->tenant(Club::class);
     }
 }

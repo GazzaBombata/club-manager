@@ -3,6 +3,7 @@
 namespace App\Filament\App\Resources;
 
 use App\Enums\CommissionMembersName;
+use App\Enums\MeetingBookingMethod;
 use App\Enums\MeetingStatus;
 use App\Filament\App\Resources\MeetingResource\Pages;
 use App\Filament\App\Resources\MeetingResource\RelationManagers;
@@ -57,12 +58,12 @@ class MeetingResource extends Resource
                     ->default(MeetingStatus::Draft)
                     ->required(),
                 Forms\Components\Select::make('booking_method')
-                    ->options(CommissionMembersName::class)
-                    ->default(CommissionMembersName::Internal)
+                    ->options(MeetingBookingMethod::class)
+                    ->default(MeetingBookingMethod::Internal)
                     ->live()
                     ->required(),
                 Forms\Components\Textarea::make('booking_instructions')
-                    ->hidden(fn (Get $get): bool => $get('booking_method') === CommissionMembersName::Internal)
+                    ->hidden(fn (Get $get): bool => $get('booking_method') === MeetingBookingMethod::Internal)
                     ->columnSpanFull(),
             ]);
     }

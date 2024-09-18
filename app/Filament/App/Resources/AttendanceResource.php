@@ -60,9 +60,7 @@ class AttendanceResource extends Resource
                     ->label('Chiusura Registrazioni')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('payment.id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('meeting.booking_method'),
                 /*Tables\Columns\ViewColumn::make('status')->view('filament.app.columns.attendance-status'),*/
                 StatusSwitcher::make('status')
                     ->action(function ($record) {
@@ -85,6 +83,7 @@ class AttendanceResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->recordUrl(fn ($record) => MeetingResource::getUrl('view', ['record' => $record->meeting->id]))
+
             ->filters([
                 //
             ])

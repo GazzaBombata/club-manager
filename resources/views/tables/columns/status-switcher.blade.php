@@ -23,7 +23,7 @@
                 class="h-5 w-5 text-emerald-500 dark:text-emerald-200"
             />
         @if($getRecord()->meeting->editable_until > now())
-            Cancella
+            Iscriviti
         @else
             Scaduto
         @endif

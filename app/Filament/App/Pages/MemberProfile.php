@@ -4,6 +4,7 @@ namespace App\Filament\App\Pages;
 
 use App\Filament\App\Widgets\AffiliationFormWidget;
 use App\Filament\App\Widgets\MemberProfileFormWidget;
+use App\Filament\App\Widgets\UserProfilePhotoWidget;
 use Filament\Pages\Page;
 
 class MemberProfile extends Page
@@ -15,6 +16,7 @@ class MemberProfile extends Page
     protected function getHeaderWidgets(): array
     {
         return [
+            UserProfilePhotoWidget::class,
             AffiliationFormWidget::class,
             MemberProfileFormWidget::class,
         ];
