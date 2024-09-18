@@ -8,7 +8,7 @@
             {{ $this->form }}
 
 
-            @if($this->record->user->id == auth()->user()->id)
+            @if(!$this->record || ($this->record->user && $this->record->user->id === auth()->user()->id))
                 <x-filament::button  id="cardButton" type="submit" wire:loading.remove >
                     {{ __('Submit') }}
                 </x-filament::button>

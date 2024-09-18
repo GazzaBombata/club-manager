@@ -65,28 +65,32 @@ class MemberProfileFormWidget extends Widget implements Forms\Contracts\HasForms
                 Forms\Components\TextInput::make('title')
                     ->maxLength(255)
                     ->disabled(function (Forms\Get $get) {
+                        $userId = $get('user_id');
                         // Use $get to access the form state, including the record
-                        return !($get('user_id') === auth()->user()->id);
+                        return $userId !== null && $userId !== auth()->user()->id;
                     }),
                 Forms\Components\RichEditor::make('description')
                     ->maxLength(255)
                     ->disabled(function (Forms\Get $get) {
+                        $userId = $get('user_id');
                         // Use $get to access the form state, including the record
-                        return !($get('user_id') === auth()->user()->id);
+                        return $userId !== null && $userId !== auth()->user()->id;
                     }),
                 Forms\Components\TextInput::make('linkedin_profile_link')
                     ->maxLength(255)
                     ->disabled(function (Forms\Get $get) {
+                        $userId = $get('user_id');
                         // Use $get to access the form state, including the record
-                        return !($get('user_id') === auth()->user()->id);
+                        return $userId !== null && $userId !== auth()->user()->id;
                     }),
                 Forms\Components\Select::make('visibility')
                     ->options(ProfileVisibility::class)
                     ->default(ProfileVisibility::Public)
                     ->required()
                     ->disabled(function (Forms\Get $get) {
+                        $userId = $get('user_id');
                         // Use $get to access the form state, including the record
-                        return !($get('user_id') === auth()->user()->id);
+                        return $userId !== null && $userId !== auth()->user()->id;
                     }),
             ])
             ->model(MemberProfile::class)
@@ -99,17 +103,18 @@ class MemberProfileFormWidget extends Widget implements Forms\Contracts\HasForms
         // Ottieni i dati del form come array
         $formData = $this->form->getState();
 
-        $formData['user_id'] = $this->record->user->id;
+        $formData['user_id'] = $this->record->user->id ?? auth()->user()->id;
 
-        if(!$this->record->memberProfile) {
-            $this->record->user->memberProfile = MemberProfile::create($formData);
+        if(!$this->record) {
+            $this->record = MemberProfile::create($formData);
         }
 
+
         // Riempi il modello con i dati del form
-        $this->record->user->memberProfile->fill($formData);
+        $this->record->fill($formData);
 
         // Salva il record nel database
-        $this->record->user->memberProfile->save();
+        $this->record->save();
 
         // Notifica l'utente dell'avvenuto salvataggio
         Notification::make()

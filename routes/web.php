@@ -12,7 +12,8 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        /*return view('dashboard');*/
+        return redirect("/app");
     })->name('dashboard');
 });
 require __DIR__.'/socialstream.php';
