@@ -29,6 +29,13 @@ class Commission extends Model
 
     public function users(): HasManyThrough
     {
-        return $this->hasManyThrough(User::class, CommissionMember::class);
+        return $this->hasManyThrough(
+            User::class, // The final model
+            CommissionMember::class, // The intermediate model
+            'commission_id', // Foreign key on the commission_members table
+            'id', // Foreign key on the users table
+            'id', // Local key on the commissions table
+            'user_id' // Local key on the commission_members table
+        );
     }
 }

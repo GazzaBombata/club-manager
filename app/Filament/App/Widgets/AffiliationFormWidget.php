@@ -56,10 +56,12 @@ class AffiliationFormWidget extends Widget implements Forms\Contracts\HasForms
                     ->required()
                     ->disabled(),
                 Forms\Components\TextInput::make('user_contact_email')
+                    ->label('Email di contatto')
                     ->email()
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('user_contact_phone')
+                    ->label('Contatto telefonico')
                     ->tel()
                     ->maxLength(255),
                 Forms\Components\DateTimePicker::make('joined_at')

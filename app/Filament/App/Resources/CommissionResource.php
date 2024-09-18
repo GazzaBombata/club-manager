@@ -5,6 +5,7 @@ namespace App\Filament\App\Resources;
 use App\Filament\App\Resources\CommissionResource\Pages;
 use App\Filament\App\Resources\CommissionResource\RelationManagers;
 use App\Filament\App\Resources\CommissionResource\Widgets\CommissionMembersTable;
+use App\Filament\App\Resources\MeetingResource\Widgets\CommissionMeetings;
 use App\Models\Commission;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -19,6 +20,10 @@ class CommissionResource extends Resource
     protected static ?string $model = Commission::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $modelLabel = 'Commissione';
+
+    protected static ?string $pluralModelLabel = 'Commissioni';
+
 
 
     public static function form(Form $form): Form
@@ -70,6 +75,7 @@ class CommissionResource extends Resource
     {
         return [
             CommissionMembersTable::class,
+            CommissionMeetings::class,
             ];
     }
 

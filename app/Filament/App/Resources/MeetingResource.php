@@ -7,6 +7,7 @@ use App\Enums\MeetingBookingMethod;
 use App\Enums\MeetingStatus;
 use App\Filament\App\Resources\MeetingResource\Pages;
 use App\Filament\App\Resources\MeetingResource\RelationManagers;
+use App\Filament\App\Resources\MeetingResource\Widgets\MeetingMinuteWidget;
 use App\Filament\App\Resources\MeetingResource\Widgets\MeetingParticipants;
 use App\Models\Meeting;
 use Filament\Forms\Get;
@@ -25,6 +26,10 @@ class MeetingResource extends Resource
     protected static ?string $model = Meeting::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar';
+
+    protected static ?string $modelLabel = 'Riunione';
+
+    protected static ?string $pluralModelLabel = 'Riunioni';
 
     public static function shouldRegisterNavigation(): bool
     {
@@ -123,6 +128,7 @@ class MeetingResource extends Resource
     {
         return [
             MeetingParticipants::class,
+            MeetingMinuteWidget::class,
         ];
     }
 

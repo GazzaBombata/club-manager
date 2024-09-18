@@ -22,6 +22,10 @@ class AttendanceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
+    protected static ?string $modelLabel = 'Invito&Presenza';
+
+    protected static ?string $pluralModelLabel = 'Inviti&Presenze';
+
 
     public static function form(Form $form): Form
     {

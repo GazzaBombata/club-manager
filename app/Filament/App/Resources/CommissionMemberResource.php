@@ -23,6 +23,10 @@ class CommissionMemberResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $modelLabel = 'Membro';
+
+    protected static ?string $pluralModelLabel = 'Membri';
+
     public static function shouldRegisterNavigation(): bool
     {
         // Only register the navigation item if the user's email is 'giorgio.giotto.gg@gmail.com'

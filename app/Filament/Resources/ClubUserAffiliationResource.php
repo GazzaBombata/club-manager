@@ -19,7 +19,7 @@ class ClubUserAffiliationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static ?string $title = 'Club User Affiliations';
+    public static ?string $title = 'Elenco Soci del club';
 
     public static function form(Form $form): Form
     {

@@ -3,6 +3,7 @@
 namespace App\Filament\App\Resources\MeetingResource\Pages;
 
 use App\Filament\App\Resources\MeetingResource;
+use App\Filament\App\Resources\MeetingResource\Widgets\MeetingMinuteWidget;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 use App\Filament\App\Resources\MeetingResource\Widgets\MeetingParticipants;
@@ -22,6 +23,7 @@ class ViewMeeting extends ViewRecord
     {
         return [
             MeetingParticipants::class,
+            MeetingMinuteWidget::class
         ];
     }
 }

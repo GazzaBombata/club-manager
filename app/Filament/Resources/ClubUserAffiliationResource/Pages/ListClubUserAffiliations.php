@@ -10,6 +10,8 @@ class ListClubUserAffiliations extends ListRecords
 {
     protected static string $resource = ClubUserAffiliationResource::class;
 
+    public static ?string $title = 'Elenco Soci del club';
+
     protected function getHeaderActions(): array
     {
         return [

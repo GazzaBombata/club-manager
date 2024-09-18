@@ -5,6 +5,7 @@ namespace App\Filament\App\Widgets;
 
 use App\Enums\ProfileVisibility;
 use App\Models\User;
+use Filament\Forms\Components\FileUpload;
 use Filament\Widgets\Widget;
 use App\Models\MemberProfile;
 use Illuminate\Contracts\View\View;
@@ -63,6 +64,7 @@ class MemberProfileFormWidget extends Widget implements Forms\Contracts\HasForms
                     ->hidden()
                     ->required(),
                 Forms\Components\TextInput::make('title')
+                    ->label('Professione')
                     ->maxLength(255)
                     ->disabled(function (Forms\Get $get) {
                         $userId = $get('user_id');
@@ -70,6 +72,7 @@ class MemberProfileFormWidget extends Widget implements Forms\Contracts\HasForms
                         return $userId !== null && $userId !== auth()->user()->id;
                     }),
                 Forms\Components\RichEditor::make('description')
+                    ->label('Descrizione del profilo')
                     ->maxLength(255)
                     ->disabled(function (Forms\Get $get) {
                         $userId = $get('user_id');
@@ -84,6 +87,7 @@ class MemberProfileFormWidget extends Widget implements Forms\Contracts\HasForms
                         return $userId !== null && $userId !== auth()->user()->id;
                     }),
                 Forms\Components\Select::make('visibility')
+                    ->label('Visibilità')
                     ->options(ProfileVisibility::class)
                     ->default(ProfileVisibility::Public)
                     ->required()

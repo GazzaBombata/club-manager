@@ -25,4 +25,9 @@ class MemberProfile extends Model
         return $this->belongsTo(User::class, 'user_id')
             ->join('clubs', 'clubs.id', '=', 'user.club_user_affiliation.club_id');
     }
+
+    public function getProfilePhotoPathAttribute()
+    {
+        return env('AWS_USE_PATH_STYLE_ENDPOINT').$this->user->profile_photo_path;
+    }
 }

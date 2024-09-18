@@ -13,6 +13,8 @@ class MemberProfile extends Page
 
     protected static string $view = 'filament.app.pages.profile';
 
+    protected static ?string $title = 'Profilo';
+
     protected function getHeaderWidgets(): array
     {
         return [

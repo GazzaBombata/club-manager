@@ -2,15 +2,19 @@
 
 namespace App\Filament\App\Resources\CommissionResource\Widgets;
 
+use App\Filament\App\Resources\ClubUserAffiliationResource;
 use App\Filament\App\Resources\CommissionMemberResource;
 use App\Filament\App\Resources\MeetingResource;
+use App\Models\ClubUserAffiliation;
 use App\Models\Commission;
 use App\Models\CommissionMember;
+use App\Policies\CommissionMemberPolicy;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Gate;
 
 class CommissionMembersTable extends BaseWidget
 
@@ -54,7 +58,7 @@ class CommissionMembersTable extends BaseWidget
                 Tables\Columns\TextColumn::make('user.name')
                     ->searchable(),
             ])
-            ->recordUrl(fn ($record) => CommissionMemberResource::getUrl('edit', ['record' => $record]))
+            ->recordUrl(fn ($record) => ClubUserAffiliationResource::getUrl('view', ['record' => $record]))
             ->actions([
 /*                Tables\Actions\Action::make('edit')
                     ->action(fn ($record) => CommissionMemberResource::getUrl('edit', ['record' => $record]))
@@ -65,6 +69,7 @@ class CommissionMembersTable extends BaseWidget
                     ->label('Add Member')
                     ->url(fn ($record) => CommissionMemberResource::getUrl('create', ['commission_id' => $this->commission->id]))
                     ->color('success')
+                    ->hidden(fn () => !Gate::allows('create', CommissionMember::class))
                     ->icon('heroicon-o-plus'),
             ]);
     }

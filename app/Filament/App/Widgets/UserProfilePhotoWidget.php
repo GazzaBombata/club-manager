@@ -38,6 +38,7 @@ class UserProfilePhotoWidget extends Widget implements Forms\Contracts\HasForms
         return $form
             ->schema([
                 FileUpload::make('profile_photo_path')
+                    ->label('Caricamento foto profilo')
                     ->disk('s3')
                     ->directory('clubberly/profile-photos')
                     ->avatar(),

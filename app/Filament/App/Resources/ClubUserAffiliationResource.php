@@ -19,6 +19,10 @@ class ClubUserAffiliationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-queue-list';
 
+    protected static ?string $modelLabel = 'Socio';
+
+    protected static ?string $pluralModelLabel = 'Soci';
+
     public static function form(Form $form): Form
     {
         return $form
