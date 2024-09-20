@@ -6,7 +6,7 @@
         @if($this->record && $this->record->user)
             <div class="w-full h-12 !h-12 flex flex-col items-center">
                 <x-filament::avatar
-                    src="{{env('AWS_URL').'/'.$this->record->user->profile_photo_path}}"
+                    src="{{$this->record->user->profile_photo_path ? env('AWS_URL').'/'.$this->record->user->profile_photo_path : 'https://medbooksbucket2.s3.eu-central-1.amazonaws.com/clubberly/profile-photos/01J873M1M02EBBBNN51V92RVJF.jpg'}}"
                     alt="{{$this->record->user->name}}"
                     size="h-full"
                 />
