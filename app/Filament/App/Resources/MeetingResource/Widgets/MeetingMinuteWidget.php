@@ -53,7 +53,7 @@ class MeetingMinuteWidget extends Widget implements Forms\Contracts\HasForms
                     ->hidden()
                     ->default(fn (Forms\Get $get) => $get('record.id'))
                     ->required(),
-                Forms\Components\Textarea::make('content')
+                Forms\Components\RichEditor::make('content')
                     ->required()
                     ->disabled(!Gate::allows('create', MeetingMinute::class))
                     ->columnSpanFull(),
