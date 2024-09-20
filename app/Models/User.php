@@ -97,7 +97,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants
 
     public function clubs(): BelongsToMany
     {
-        return $this->belongsToMany(Club::class, 'club_user_affiliations')->using(ClubUserAffiliation::class);
+        return $this->belongsToMany(Club::class, 'club_user_affiliations', 'user_id', 'club_id');
     }
 
     public function getTenants(Panel $panel): Collection

@@ -28,6 +28,6 @@ class MemberProfile extends Model
 
     public function getProfilePhotoPathAttribute()
     {
-        return env('AWS_USE_PATH_STYLE_ENDPOINT').$this->user->profile_photo_path;
+        return env('AWS_URL').'/'.$this->user->profile_photo_path;
     }
 }

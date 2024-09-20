@@ -2,7 +2,10 @@
 
 namespace App\Filament\App\Widgets;
 
+use App\Enums\MeetingStatus;
+use App\Models\Club;
 use App\Models\ClubUserAffiliation;
+use Carbon\Carbon;
 use Filament\Widgets\Widget;
 use Illuminate\Contracts\View\View;
 use Filament\Forms;
@@ -34,6 +37,7 @@ class AffiliationFormWidget extends Widget implements Forms\Contracts\HasForms
         $this->record = auth()->user()->clubUserAffiliation;
 
         $this->form->fill($this->record->toArray());
+
     }
 
 

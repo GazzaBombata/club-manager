@@ -1,6 +1,7 @@
 <x-filament::widget>
     <x-filament::section class="flex flex-col space-y-6">
 
+
         <h2 class="fi-header-heading text-lg font-bold tracking-tight text-gray-950 dark:text-white sm:text-xl">{{ __('Recapiti') }}</h2>
 
         <form wire:submit="submit" class="flex flex-col space-y-4">

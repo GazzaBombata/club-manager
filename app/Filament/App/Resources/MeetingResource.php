@@ -48,7 +48,15 @@ class MeetingResource extends Resource
                 Forms\Components\Select::make('commission_id')
                     ->relationship('commission', 'name',fn (Builder $query) => $query->where('club_id','=',Filament::getTenant()->id)),
                 Forms\Components\DateTimePicker::make('meeting_date')
-                    ->required(),
+                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set, Get $get) {
+                        // Only set editable_until if it's currently null
+                        if (!$get('editable_until')) {
+                            // Set editable_until to 2 days before the meeting_date
+                            $set('editable_until', now()->parse($state)->subDays(2)->format('Y-m-d H:i:s'));
+                        }
+                    }),
                 Forms\Components\DateTimePicker::make('editable_until')
                     ->required(),
                 Forms\Components\TextInput::make('meeting_name')

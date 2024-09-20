@@ -2,8 +2,12 @@
 
 namespace App\Actions\Fortify;
 
+use App\Enums\AttendanceStatus;
+use App\Enums\MeetingStatus;
+use App\Models\Attendance;
 use App\Models\Club;
 use App\Models\ClubUserAffiliation;
+use App\Models\Meeting;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -50,6 +54,18 @@ class CreateNewUser implements CreatesNewUsers
                     'user_contact_phone' => '',
                     'joined_at' => Carbon::now(),
                 ]);
+
+                $meetings = Club::find($club->id)->meetings->where('editable_until', '>', Carbon::now())->where('status', '=' , MeetingStatus::Published->value)->where('commission_id', '=', null);
+
+                foreach ($meetings as $meeting) {
+                    Attendance::create([
+                        'meeting_id' => $meeting->id,
+                        'user_id' => $user->id,
+                        'payment_id' => null,
+                        'status' => AttendanceStatus::Invited,
+                        'is_compulsory' => true,
+                    ]);
+                }
             }
         }
 

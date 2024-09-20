@@ -3,11 +3,15 @@
 
         <h2 class="fi-header-heading text-lg font-bold tracking-tight text-gray-950 dark:text-white sm:text-xl">{{ __('Informazioni Professionali') }}</h2>
 
-        @if($this->record && $this->record->user))
-        <x-filament::avatar
-            src="{{$this->record->getProfilePhotoPath()}}"
-            alt="Dan Harrin"
-        />
+        @if($this->record && $this->record->user)
+            <div class="w-full h-12 !h-12 flex flex-col items-center">
+                <x-filament::avatar
+                    src="{{$this->record->getProfilePhotoPathAttribute()}}"
+                    alt="{{$this->record->user->name}}"
+                    size="h-full"
+                />
+            </div>
+
         @endif
 
         <form wire:submit="submit" class="flex flex-col space-y-4">
