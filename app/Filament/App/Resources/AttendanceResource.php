@@ -6,6 +6,7 @@ use App\Enums\AttendanceStatus;
 use App\Enums\MeetingStatus;
 use App\Filament\App\Resources\AttendanceResource\Pages;
 use App\Filament\App\Resources\AttendanceResource\RelationManagers;
+use App\Mail\MeetingInvitation;
 use App\Models\Attendance;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -15,6 +16,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Tables\Columns\StatusSwitcher;
+use Illuminate\Support\Facades\Mail;
 
 class AttendanceResource extends Resource
 {
@@ -59,6 +61,11 @@ class AttendanceResource extends Resource
                         }
                         $record->status = $record->status === 'Present' ? 'Absent' : 'Present';
                         $record->save();
+                        if ($record->status == 'Present') {
+                            Mail::mailer('smtp')
+                                ->to($record->user->email)
+                                ->send(new MeetingInvitation($record->meeting, $record));
+                        }
                     }),
                 Tables\Columns\TextColumn::make('meeting.location')
                     ->label('Luogo')

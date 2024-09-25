@@ -2,8 +2,11 @@
 
 namespace App\Tables\Columns;
 
+
+use App\Mail\MeetingInvitation;
 use App\Models\Attendance;
 use Filament\Tables\Columns\Column;
+use Illuminate\Support\Facades\Mail;
 
 class StatusSwitcher extends Column
 {
@@ -13,5 +16,6 @@ class StatusSwitcher extends Column
     {
         $attendance->status = $status;
         $attendance->save();
+
     }
 }
