@@ -52,6 +52,14 @@ class AttendanceResource extends Resource
                     ->label('Nome Evento')
                     ->searchable()
                     ->sortable(),
+                StatusSwitcher::make('status')
+                    ->action(function ($record) {
+                        if ($record->meeting->editable_until < now()) {
+                            return;
+                        }
+                        $record->status = $record->status === 'Present' ? 'Absent' : 'Present';
+                        $record->save();
+                    }),
                 Tables\Columns\TextColumn::make('meeting.location')
                     ->label('Luogo')
                     ->searchable()
@@ -66,14 +74,6 @@ class AttendanceResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('meeting.booking_method'),
                 /*Tables\Columns\ViewColumn::make('status')->view('filament.app.columns.attendance-status'),*/
-                StatusSwitcher::make('status')
-                    ->action(function ($record) {
-                        if ($record->meeting->editable_until < now()) {
-                            return;
-                        }
-                        $record->status = $record->status === 'Present' ? 'Absent' : 'Present';
-                        $record->save();
-                    }),
                 Tables\Columns\IconColumn::make('is_compulsory')
                     ->label('Obbligatorio')
                     ->boolean(),
