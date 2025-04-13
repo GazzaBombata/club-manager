@@ -41,7 +41,7 @@ class EditMeeting extends EditRecord
         $start->setTimeZone('Europe/Rome');
 
         $end = new EventDateTime();
-        $end->setDateTime($this->record->meeting_date_end->toRfc3339String() ?? $this->record->meeting_date->copy()->addHours(2)->toRfc3339String());
+        $end->setDateTime($this->record->meeting_date_end->toRfc3339String());
         $end->setTimeZone('Europe/Rome');
 
         $event->setStart($start);

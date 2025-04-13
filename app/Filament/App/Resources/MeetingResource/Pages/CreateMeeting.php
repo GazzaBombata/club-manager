@@ -61,7 +61,7 @@ class CreateMeeting extends CreateRecord
                 'timeZone' => 'Europe/Rome',
             ],
             'end' => [
-                'dateTime' => $this->record->meeting_date_end->toRfc3339String() ?? $this->record->meeting_date->copy()->addHours(2)->toRfc3339String(),
+                'dateTime' => $this->record->meeting_date_end->toRfc3339String(),
                 'timeZone' => 'Europe/Rome',
             ],
             'attendees' => $invitees->map(fn ($user) => ['email' => $user->email])->toArray(),
