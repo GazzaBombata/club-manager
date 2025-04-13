@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-x-5 md:gap-x-8">
-                <div class="block">
+                <div class="block dark:text-white">
                     @if(!auth()->user())
                         <x-tailwind.navlink href="/login" class="nav-link">Log in</x-tailwind.navlink>
                     @else

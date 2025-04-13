@@ -51,15 +51,21 @@ class MeetingResource extends Resource
                 Forms\Components\DateTimePicker::make('meeting_date')
                     ->required()
                     ->reactive()
+                    ->seconds(false)
                     ->afterStateUpdated(function ($state, callable $set, Get $get) {
                         // Only set editable_until if it's currently null
                         if (!$get('editable_until')) {
                             // Set editable_until to 2 days before the meeting_date
                             $set('editable_until', now()->parse($state)->subDays(2)->format('Y-m-d H:i:s'));
+                            $set('meeting_date_end', now()->parse($state)->addHours(2)->format('Y-m-d H:i:s'));
                         }
                     }),
+                Forms\Components\DateTimePicker::make('meeting_date_end')
+                    ->required()
+                    ->seconds(false),
                 Forms\Components\DateTimePicker::make('editable_until')
-                    ->required(),
+                    ->required()
+                    ->seconds(false),
                 Forms\Components\TextInput::make('meeting_name')
                     ->required()
                     ->maxLength(255),

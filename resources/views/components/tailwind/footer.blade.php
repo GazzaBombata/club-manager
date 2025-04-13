@@ -1,5 +1,5 @@
 <footer class="bg-white">
-  <div class="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
+  <div class="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8 dark:bg-black ">
     <div class="flex justify-center space-x-6 md:order-2">
 
 
@@ -36,7 +36,7 @@
       </a> --}}
     </div>
     <div class="mt-8 md:order-1 md:mt-0">
-      <p class="text-center text-xs leading-5 text-gray-500">&copy; 2020 Clubberly, Inc. All rights reserved.</p>
+      <p class="text-center text-xs leading-5 text-gray-500 dark:text-white">&copy; 2020 Clubberly, Inc. All rights reserved.</p>
     </div>
   </div>
 </footer>

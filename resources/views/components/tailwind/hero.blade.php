@@ -11,7 +11,7 @@
   ];
 @endphp
 <x-tailwind.container class="pb-16 pt-20 text-center lg:pt-32">
-  <h1 class="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
+  <h1 class="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl dark:text-white">
     Gestionale
     <span class="relative whitespace-nowrap text-coral-600">
       <svg aria-hidden="true" viewBox="0 0 418 42" class="absolute left-0 top-2/3 h-[0.58em] w-full fill-indigo-300/70" preserveAspectRatio="none">
@@ -21,10 +21,10 @@
     </span>
     per il tuo club.
   </h1>
-  <p class="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
+  <p class="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700 dark:text-white">
     Automatizza la gestione del tuo club con clubberly
   </p>
-  <div class="mt-10 flex justify-center gap-x-6">
+  <div class="mt-10 flex justify-center gap-x-6 dark:bg-indigo-300/70">
         <a href="#pricing"><x-tailwind.button >Contattaci</x-tailwind.button></a>
         {{-- <x-tailwind.button
           href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
