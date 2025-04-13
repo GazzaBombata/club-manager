@@ -22,6 +22,12 @@ Route::get('/oauth/redirect', [GoogleOAuthController::class, 'redirectToGoogle']
 Route::get('/oauth/callback', [GoogleOAuthController::class, 'handleCallback'])->name('google.callback');
 
 
+Route::get('/app-download', function () {
+    return view('pwa.download');
+});
+
+
+
 
 
 
