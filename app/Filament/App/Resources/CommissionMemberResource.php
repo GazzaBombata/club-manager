@@ -23,14 +23,15 @@ class CommissionMemberResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $modelLabel = 'Membro';
+    protected static ?string $modelLabel = 'Nomina Commissione';
 
-    protected static ?string $pluralModelLabel = 'Membri';
+    protected static ?string $pluralModelLabel = 'Nomine Commissioni';
 
     public static function shouldRegisterNavigation(): bool
     {
-        // Only register the navigation item if the user's email is 'giorgio.giotto.gg@gmail.com'
-        return auth()->check() && auth()->user()->email === 'giorgio.giotto.gg@gmail.com';
+        $user = auth()->user();
+
+        return $user && $user->commissions()->where('name', 'Consiglio Direttivo')->exists();
     }
 
     public static function form(Form $form): Form

@@ -24,6 +24,9 @@ class EditClubProfile extends EditTenantProfile
                 TextInput::make('address')
                     ->required()
                     ->maxLength(255),
+                TextInput::make('google_email')
+                    ->required()
+                    ->email(),
                 FileUpload::make('photo')
                     ->disk('s3')
                     ->directory('clubberly/profile-photos')

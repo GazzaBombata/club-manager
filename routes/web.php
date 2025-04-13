@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GoogleOAuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,4 +17,11 @@ Route::middleware([
         return redirect("/app");
     })->name('dashboard');
 });
-require __DIR__.'/socialstream.php';
+
+Route::get('/oauth/redirect', [GoogleOAuthController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('/oauth/callback', [GoogleOAuthController::class, 'handleCallback'])->name('google.callback');
+
+
+
+
+

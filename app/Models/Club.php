@@ -51,4 +51,10 @@ class Club extends Model implements HasAvatar
     {
         return 'https://medbooksbucket2.s3.eu-central-1.amazonaws.com/'.$this->photo;
     }
+
+    public function googleAccount()
+    {
+        return $this->hasOne(GoogleAccount::class);
+    }
+
 }

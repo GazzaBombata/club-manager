@@ -26,7 +26,7 @@ class MeetingParticipants extends BaseWidget
             ->query(
                 Attendance::query()
                     ->where('meeting_id', $this->meeting->id)
-                    ->where('status', 'Present')
+                    ->where('status', 'Accepted')
                     ->with('user') // Eager load the user relationship
             )
             ->columns([

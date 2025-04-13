@@ -4,6 +4,7 @@ namespace App\Filament\Pages\Tenancy;
 
 use App\Models\Club;
 use App\Models\ClubUserAffiliation;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Tenancy\RegisterTenant;
@@ -22,6 +23,10 @@ return $form
         TextInput::make('name')
             ->required()
             ->maxLength(255),
+        TextInput::make('google_email')
+            ->hint('Dopo la registrazione ti verrà chiesto di connettere il calendario Google ufficiale del club')
+            ->required()
+            ->email(),
         TextInput::make('address')
             ->required()
             ->maxLength(255),
@@ -42,6 +47,10 @@ protected function handleRegistration(array $data): Club
     ]);
 
     return $club;
-
 }
+
+    protected function redirectAfterRegistration(): string
+    {
+        return route('google.redirect');
+    }
 }

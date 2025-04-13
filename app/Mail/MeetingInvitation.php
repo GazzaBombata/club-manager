@@ -53,7 +53,8 @@ class MeetingInvitation extends Mailable
     public function attachments(): array
     {
         // Creazione delle date per l'evento
-        $from = new DateTime($this->meeting->meeting_date);
+        $from = new DateTime($this->meeting->meeting_date, new \DateTimeZone('Europe/Rome'));
+
         $to = (clone $from)->modify('+2 hours'); // Durata di esempio di 2 ore
 
         // Crea il link dell'evento

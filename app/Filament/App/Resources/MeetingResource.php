@@ -33,8 +33,9 @@ class MeetingResource extends Resource
 
     public static function shouldRegisterNavigation(): bool
     {
-        // Only register the navigation item if the user's email is 'giorgio.giotto.gg@gmail.com'
-        return auth()->check() && auth()->user()->email === 'giorgio.giotto.gg@gmail.com';
+        $user = auth()->user();
+
+        return $user && $user->commissions()->where('name', 'Consiglio Direttivo')->exists();
     }
 
     public static function form(Form $form): Form

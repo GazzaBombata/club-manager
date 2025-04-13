@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\ConnectedAccount;
+
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
-use JoelButcher\Socialstream\Providers;
+
 use Laravel\Jetstream\Features as JetstreamFeatures;
 
 /**
@@ -50,9 +50,7 @@ class UserFactory extends Factory
      */
     public function withPersonalTeam(callable $callback = null): static
     {
-        if (! JetstreamFeatures::hasTeamFeatures()) {
-            return $this->state([]);
-        }
+
 
         return $this->has(
             Team::factory()
@@ -71,18 +69,6 @@ class UserFactory extends Factory
      */
     public function withConnectedAccount(string $provider, callable $callback = null): static
     {
-        if (! Providers::enabled($provider)) {
-            return $this->state([]);
-        }
 
-        return $this->has(
-            ConnectedAccount::factory()
-                ->state(fn (array $attributes, User $user) => [
-                    'provider' => $provider,
-                    'user_id' => $user->id,
-                ])
-                ->when(is_callable($callback), $callback),
-            'ownedTeams'
-        );
     }
 }

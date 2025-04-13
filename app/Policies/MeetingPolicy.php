@@ -29,7 +29,14 @@ class MeetingPolicy
      */
     public function create(User $user): bool
     {
-        return $user->email == 'giorgio.giotto.gg@gmail.com';
+        $hasRequiredRoleInConsiglioDirettivo = $user->commissionRoles
+            ->where("end_date", null)
+            ->contains(function ($commissionRole) {
+                return in_array($commissionRole->role, ["President", "Secretary"]) &&
+                    optional($commissionRole->commission)->name === "Consiglio Direttivo";
+            });
+
+        return $hasRequiredRoleInConsiglioDirettivo;
     }
 
     /**

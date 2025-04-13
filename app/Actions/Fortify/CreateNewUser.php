@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
+use App\Services\GoogleCalendarService;
+use Google\Service\Calendar;
+use Google\Service\Calendar\EventAttendee;
+
+
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -65,6 +70,26 @@ class CreateNewUser implements CreatesNewUsers
                         'status' => AttendanceStatus::Invited,
                         'is_compulsory' => true,
                     ]);
+
+
+                    $calendarClient = GoogleCalendarService::getClientForClub($club);
+
+                    if ($calendarClient && $meeting->google_event_id) {
+                        $calendar = new Calendar($calendarClient);
+                        $event = $calendar->events->get($club->googleAccount->email, $meeting->google_event_id);
+
+                        $attendees = $event->getAttendees() ?? [];
+
+                        // Aggiungi il nuovo utente solo se non già presente
+                        if (!collect($attendees)->contains(fn ($a) => $a->email === $user->email)) {
+                            $attendees[] = new EventAttendee([
+                                'email' => $user->email,
+                            ]);
+                            $event->setAttendees($attendees);
+                            $calendar->events->update($club->googleAccount->email, $event->getId(), $event);
+                        }
+                    }
+
                 }
             }
         }

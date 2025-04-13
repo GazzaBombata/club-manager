@@ -8,7 +8,7 @@
         "php": "^8.2",
         "filament/filament": "^3.2",
         "filament/forms": "^3.2",
-        "joelbutcher/socialstream": "^6.1",
+        "google/apiclient": "^2.18",
         "laravel/framework": "^11.9",
         "laravel/jetstream": "^5.2",
         "laravel/sanctum": "^4.0",
@@ -16,6 +16,7 @@
         "league/flysystem-aws-s3-v3": "^3.28",
         "livewire/livewire": "^3.0",
         "spatie/calendar-links": "^1.11",
+        "spatie/laravel-google-calendar": "^3.8",
         "spatie/laravel-permission": "^6.9"
     },
     "require-dev": {
@@ -33,7 +34,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/GoogleCalendar.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

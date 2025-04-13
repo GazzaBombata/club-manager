@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Tables\Columns\StatusSwitcher;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class AttendanceResource extends Resource
 {
@@ -37,6 +38,7 @@ class AttendanceResource extends Resource
             ]);
     }
 
+
     public static function table(Table $table): Table
     {
         return $table
@@ -47,14 +49,15 @@ class AttendanceResource extends Resource
                     }) // Include meeting with status "Published"
                     ->whereHas('meeting', function ($query) {
                         $query->where('meeting_date', '>', now()); // Meetings in the future
-                    });
+                    })
+                ;
             })
             ->columns([
                 Tables\Columns\TextColumn::make('meeting.meeting_name')
                     ->label('Nome Evento')
                     ->searchable()
                     ->sortable(),
-                StatusSwitcher::make('status')
+/*                StatusSwitcher::make('status')
                     ->action(function ($record) {
                         if ($record->meeting->editable_until < now()) {
                             return;
@@ -66,7 +69,7 @@ class AttendanceResource extends Resource
                                 ->to($record->user->email)
                                 ->send(new MeetingInvitation($record->meeting, $record));
                         }
-                    }),
+                    }),*/
                 Tables\Columns\TextColumn::make('meeting.location')
                     ->label('Luogo')
                     ->searchable()
@@ -99,7 +102,12 @@ class AttendanceResource extends Resource
                 //
             ])
             ->actions([
-                //
+                Tables\Actions\Action::make('google_event_link')
+                    ->label('Apri in Google Calendar')
+                    ->url(fn ($record) => generateGoogleCalendarLink($record->meeting->google_event_id, $record->meeting->club->googleAccount->email))
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->openUrlInNewTab()
+                    ->visible(fn ($record) => filled($record->meeting?->google_event_id) && filled($record->meeting->club?->googleAccount?->email)),
             ])
             ->bulkActions([
                 //

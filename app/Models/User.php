@@ -5,12 +5,14 @@ namespace App\Models;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use JoelButcher\Socialstream\HasConnectedAccounts;
-use JoelButcher\Socialstream\SetsProfilePhotoFromUrl;
+
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -22,13 +24,13 @@ use Illuminate\Support\Collection;
 class User extends Authenticatable implements FilamentUser, HasTenants
 {
     use HasApiTokens;
-    use HasConnectedAccounts;
+
     use HasFactory;
     use HasProfilePhoto {
         HasProfilePhoto::profilePhotoUrl as getPhotoUrl;
     }
     use Notifiable;
-    use SetsProfilePhotoFromUrl;
+
     use TwoFactorAuthenticatable;
 
     /**
@@ -119,5 +121,22 @@ class User extends Authenticatable implements FilamentUser, HasTenants
             'admin' => $this->email === 'giorgio.giotto.gg@gmail.com',
             'app' => true,
         };
+    }
+
+    public function commissionRoles(): HasMany
+    {
+        return $this->hasMany(CommissionMember::class);
+    }
+
+    public function commissions(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Commission::class, // The final model
+            CommissionMember::class, // The intermediate model
+            'user_id', // Foreign key on the commission_members table
+            'id', // Foreign key on the users table
+            'id', // Local key on the commissions table
+            'commission_id' // Local key on the commission_members table
+        );
     }
 }
