@@ -46,12 +46,15 @@ class AttendanceResource extends Resource
                 $query->where('user_id', auth()->id())
                     ->whereHas('meeting', function ($query) {
                         $query->where('status', '=', MeetingStatus::Published);
-                    }) // Include meeting with status "Published"
-                    ->whereHas('meeting', function ($query) {
-                        $query->where('meeting_date', '>', now()); // Meetings in the future
                     })
-                ;
+                    ->whereHas('meeting', function ($query) {
+                        $query->where('meeting_date', '>', now());
+                    })
+                    ->join('meetings', 'attendances.meeting_id', '=', 'meetings.id') // join per ordinare
+                    ->orderBy('meetings.meeting_date', 'asc') // ordine crescente (dalla più vecchia)
+                    ->select('attendances.*'); // evita conflitti di colonne
             })
+
             ->columns([
                 Tables\Columns\TextColumn::make('meeting.meeting_name')
                     ->label('Nome Evento')
