@@ -29,14 +29,9 @@ class MeetingPolicy
      */
     public function create(User $user): bool
     {
-        $hasRequiredRoleInConsiglioDirettivo = $user->commissionRoles
-            ->where("end_date", null)
-            ->contains(function ($commissionRole) {
-                return in_array($commissionRole->role, ["President", "Secretary"]) &&
-                    optional($commissionRole->commission)->name === "Consiglio Direttivo";
-            });
+        $user = auth()->user();
 
-        return $hasRequiredRoleInConsiglioDirettivo;
+        return $user && $user->commissions()->where('name', 'Consiglio Direttivo')->exists();
     }
 
     /**
@@ -44,7 +39,9 @@ class MeetingPolicy
      */
     public function update(User $user, Meeting $meeting): bool
     {
-        return $user->email == 'giorgio.giotto.gg@gmail.com';
+        $user = auth()->user();
+
+        return $user && $user->commissions()->where('name', 'Consiglio Direttivo')->exists();
     }
 
     /**
@@ -52,7 +49,9 @@ class MeetingPolicy
      */
     public function delete(User $user, Meeting $meeting): bool
     {
-        return $user->email == 'giorgio.giotto.gg@gmail.com';
+        $user = auth()->user();
+
+        return $user && $user->commissions()->where('name', 'Consiglio Direttivo')->exists();
     }
 
     /**
@@ -60,7 +59,9 @@ class MeetingPolicy
      */
     public function restore(User $user, Meeting $meeting): bool
     {
-        return $user->email == 'giorgio.giotto.gg@gmail.com';
+        $user = auth()->user();
+
+        return $user && $user->commissions()->where('name', 'Consiglio Direttivo')->exists();
     }
 
     /**
@@ -68,6 +69,8 @@ class MeetingPolicy
      */
     public function forceDelete(User $user, Meeting $meeting): bool
     {
-        return $user->email == 'giorgio.giotto.gg@gmail.com';
+        $user = auth()->user();
+
+        return $user && $user->commissions()->where('name', 'Consiglio Direttivo')->exists();
     }
 }
