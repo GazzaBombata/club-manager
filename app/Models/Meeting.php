@@ -17,6 +17,7 @@ class Meeting extends Model
         'club_id' => 'integer',
         'commission_id' => 'integer',
         'meeting_date' => 'datetime',
+        'meeting_date_end' => 'datetime',
         'editable_until' => 'datetime',
     ];
 
