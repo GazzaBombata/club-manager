@@ -8,6 +8,7 @@ use App\Models\Club;
 use App\Services\GoogleCalendarService;
 use Google\Service\Calendar;
 use App\Enums\AttendanceStatus;
+use Illuminate\Support\Facades\Log;
 
 
 class SyncGoogleAttendance extends Command
@@ -62,11 +63,9 @@ class SyncGoogleAttendance extends Command
             }
         });
 
+        Log::info('Esecuzione sync:google-attendance avviata alle ' . now());
+
         $this->info('Sincronizzazione completata');
     }
 
-    public function schedule(Schedule $schedule): void
-    {
-        $schedule->dailyAt('03:00');
-    }
 }
