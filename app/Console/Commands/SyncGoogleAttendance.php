@@ -9,6 +9,7 @@ use App\Services\GoogleCalendarService;
 use Google\Service\Calendar;
 use App\Enums\AttendanceStatus;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 
 class SyncGoogleAttendance extends Command
@@ -19,7 +20,7 @@ class SyncGoogleAttendance extends Command
     public function handle(): void
     {
         $from = now()->subHours(48);
-        $to = now()->addDays(5);
+        $to = now()->addDays(30);
 
         Club::whereHas('googleAccount')->each(function ($club) use ($from, $to) {
             $client = GoogleCalendarService::getClientForClub($club);
@@ -57,13 +58,18 @@ class SyncGoogleAttendance extends Command
                             'status' => $statusMap[$status] ?? AttendanceStatus::Invited,
                         ]);
 
+                        if (in_array($status, ['needsAction', 'tentative'])) {
+                            Mail::mailer('smtp')
+                                ->to($userEmail)
+                                ->queue(new \App\Mail\RsvpReminder($attendance->meeting));
+                        }
 
                     }
                 }
             }
         });
 
-        Log::info('Esecuzione sync:google-attendance avviata alle ' . now());
+        Log::info('Sincronizzazione completata');
 
         $this->info('Sincronizzazione completata');
     }
