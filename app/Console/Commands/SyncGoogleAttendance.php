@@ -58,10 +58,16 @@ class SyncGoogleAttendance extends Command
                             'status' => $statusMap[$status] ?? AttendanceStatus::Invited,
                         ]);
 
-                        if (in_array($status, ['needsAction', 'tentative'])) {
+                        $meeting = $attendance->meeting;
+
+                        if (
+                            in_array($status, ['needsAction']) &&
+                            now()->lt($meeting->editable_until) &&
+                            now()->greaterThanOrEqualTo($meeting->editable_until->copy()->subDays(3))
+                        ) {
                             Mail::mailer('smtp')
                                 ->to($userEmail)
-                                ->queue(new \App\Mail\RsvpReminder($attendance->meeting));
+                                ->queue(new \App\Mail\RsvpReminder($meeting));
                         }
 
                     }
