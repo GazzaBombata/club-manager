@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages\Tenancy;
 
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -31,6 +32,11 @@ class EditClubProfile extends EditTenantProfile
                     ->disk('s3')
                     ->directory('clubberly/profile-photos')
                     ->avatar(),
+                Action::make('riconnetti Google Calendar')
+                    ->url(route('google.redirect'))
+                    ->openUrlInNewTab()
+                    ->icon('heroicon-o-link')
             ]);
     }
+
 }

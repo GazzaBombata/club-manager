@@ -69,4 +69,6 @@ protected function handleRegistration(array $data): Club
     {
         return route('google.redirect');
     }
+
+
 }

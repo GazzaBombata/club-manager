@@ -79,7 +79,7 @@ class CreateMeeting extends CreateRecord
             if ($e->getCode() === 400 && Str::contains($e->getMessage(), 'invalid_grant')) {
                 Notification::make()
                     ->title('Accesso a Google Calendar scaduto')
-                    ->body('Il collegamento è scaduto. <a href"'. route('google.redirect') .'"class="underline">Clicca qui per ricollegarlo</>.')
+                    ->body('Il collegamento è scaduto. Vai sul profilo del club e premi "riconnetti google calendar" e poi ricrea la riunione')
                     ->danger()
                     ->persistent()
                     ->send();
