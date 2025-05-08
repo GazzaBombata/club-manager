@@ -12,6 +12,7 @@ use Filament\Resources\Pages\CreateRecord;
 use Google\Service\Calendar;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Spatie\GoogleCalendar\Event as GoogleCalendarEvent;
 use Carbon\Carbon;
 use Google\Service\Calendar\Event as GoogleEvent;
